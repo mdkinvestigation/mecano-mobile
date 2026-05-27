@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mecano-Pro | Mécanique Automobile Mobile & Diagnostic Élite</title>
-    <!-- FontAwesome pour les icônes de mécanique pure -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts : Montserrat pour les titres robustes, Inter pour une lisibilité maximale -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=700;800;900&family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
@@ -559,7 +557,7 @@
             text-transform: uppercase;
         }
 
-        /* --- SECTION : CONTACT, ZONE DE SERVICE & MAPS --- */
+        /* --- SECTION : CONTACT, ZONE DE SERVICE --- */
         .contact {
             padding: 120px 20px;
             background: #090a0c;
@@ -636,7 +634,7 @@
             gap: 12px;
         }
 
-        /* Intégration propre de la carte Google Maps */
+        /* Conteneur d'image propre remplaçant la carte */
         .maps-heavy-wrapper {
             width: 100%;
             height: 300px;
@@ -644,13 +642,13 @@
             overflow: hidden;
             border: 2px solid #23262d;
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-            filter: grayscale(40%) contrast(115%) invert(90%) hue-rotate(180deg); /* Style sombre/technique */
         }
 
-        .maps-heavy-wrapper iframe {
+        .maps-heavy-wrapper img {
             width: 100%;
             height: 100%;
-            border: 0;
+            object-fit: cover;
+            display: block;
         }
 
         .form-heavy-wrapper {
@@ -881,7 +879,6 @@
 </head>
 <body>
 
-    <!-- BARRE DE NAVIGATION FIXE -->
     <header>
         <div class="nav-container">
             <a class="logo" onclick="switchPage('home')">
@@ -895,10 +892,8 @@
         </div>
     </header>
 
-    <!-- ================= PAGE 1 : ACCUEIL & PRÉSENTATION ================= -->
     <div id="page-home" class="page-content active-page">
         
-        <!-- HERO ATELIER LOURD -->
         <section class="hero">
             <div class="hero-container">
                 <div class="hero-badge"><i class="fa-solid fa-wrench"></i> 20+ Ans d'expérience de pure mécanique de terrain</div>
@@ -911,10 +906,9 @@
             </div>
         </section>
 
-        <!-- SECTION À PROPOS -->
         <section class="about reveal">
             <div class="about-img-container">
-                <img src="moi.jpg" alt="DINO - Expert Mécanicien Élite">[cite: 1]
+                <img src="voisin.jpg" alt="Youssef Mhirigue - Expert Mécanicien Élite">
                 <div class="about-badge-heavy">
                     <h3>20+ ANS</h3>
                     <p>Mains dans le bloc</p>
@@ -958,7 +952,6 @@
             </div>
         </section>
 
-        <!-- SECTION AVANTAGES -->
         <section class="advantages">
             <div class="section-header reveal">
                 <span>PRESTATIONS ROBUSTES</span>
@@ -998,7 +991,6 @@
             </div>
         </section>
 
-        <!-- SECTION GALERIE -->
         <section class="gallery">
             <div class="section-header reveal">
                 <span>IMAGES DE TERRAIN</span>
@@ -1022,7 +1014,7 @@
                     <div class="gallery-overlay-heavy"><h3>Trains & Freinage</h3><p>Remplacement disques, étriers et étalonnage</p></div>
                 </div>
                 <div class="gallery-item-heavy reveal">
-                    <img src="wik.jpg" alt="Mécanique automobile professionnelle">
+                    <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=600" alt="Composants et engrenages mécaniques auto">
                     <div class="gallery-overlay-heavy"><h3>Composants Internes</h3><p>Changement de pièces de suralimentation</p></div>
                 </div>
                 <div class="gallery-item-heavy reveal">
@@ -1032,7 +1024,6 @@
             </div>
         </section>
 
-        <!-- SECTION CONTACT, ADRESSE ET GOOGLE MAPS INTERACTIVE -->
         <section class="contact" id="contact-section">
             <div class="contact-container">
                 <div class="contact-info-heavy reveal">
@@ -1050,14 +1041,8 @@
                         <p style="color: var(--text-muted); font-size: 0.95rem;">Point de départ de nos unités mobiles. Prise en charge et dépannage lourd dans un rayon de 50km (Rive-Sud et environs).</p>
                     </div>
 
-                    <!-- MODULE INTEGRATION GOOGLE MAPS PROFESSIONNEL -->
                     <div class="maps-heavy-wrapper">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m4!2m3!1s0x4cc91b619717013d%3A0xc6cb1c7df47e70db!2s231%20Rue%20Goyette%2C%20Longueuil%2C%20QC%20J4J%202X1!8m2!3d45.5248!4d-73.4772!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91b619717013d%3A0xc6cb1c7df47e70db!2s231%20Rue%20Goyette%2C%20Longueuil%2C%20QC%20J4J%202X1!5e0!3m2!1sfr!2sca!4v1716840000000!5m2!1sfr!2sca" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                        <img src="wiz.jpg" alt="Atelier mécanique professionnel">
                     </div>
                 </div>
 
@@ -1100,10 +1085,8 @@
     </div>
 
 
-    <!-- ================= PAGE 2 : SERVICES DÉTAILLÉS ================= -->
     <div id="page-services" class="page-content">
         
-        <!-- BANNER SERVICES DE POINTE -->
         <section class="banner-heavy-services">
             <div>
                 <h1>Catalogue de <span class="red-highlight">Prestations Mécaniques</span></h1>
@@ -1111,7 +1094,6 @@
             </div>
         </section>
 
-        <!-- SERVICES DETAILED GRID -->
         <div class="services-heavy-grid">
             
             <div class="card-service-heavy">
@@ -1200,7 +1182,6 @@
     </div>
 
 
-    <!-- FOOTER GENERAL ATELIER -->
     <footer>
         <div class="footer-container">
             <div class="footer-intro">
@@ -1228,7 +1209,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 MECANO-PRO. Tous droits réservés. Ateliers Mobiles Automobiles Experts.</p>
+            <p>© 2026 MECANO-PRO. Tous droits réservés. Ateliers Mobiles Automobiles Experts.</p>
             <p><i class="fa-solid fa-circle-check" style="color: #059669;"></i> Couvert par une assurance responsabilité professionnelle complète</p>
         </div>
     </footer>
