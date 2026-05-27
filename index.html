@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecano-Pro | Mécanique Automobile Mobile & Diagnostic Élite</title>
+    <!-- FontAwesome pour les icônes de mécanique pure -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts : Montserrat pour les titres robustes, Inter pour une lisibilité maximale -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=700;800;900&family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-carbon: #0c0d0f;
+            --bg-card: rgba(18, 19, 23, 0.85);
+            --red-mechanic: #d31f26;
+            --red-neon: #ff1e27;
+            --gray-metal: #4a4e54;
+            --gray-light: #9ca3af;
+            --white-clean: #ffffff;
+            --text-muted: #cdcfd4;
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --neon-glow: 0 0 20px rgba(211, 31, 38, 0.45);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --carbon-texture: radial-gradient(circle, #15171c 10%, transparent 11%), radial-gradient(circle, #15171c 10%, #0c0d0f 11%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-carbon);
+            background-image: var(--carbon-texture);
+            background-size: 8px 8px;
+            color: var(--white-clean);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- CLASSES D'ANIMATIONS ET REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-smooth);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .red-highlight {
+            color: var(--red-neon);
+            font-weight: 900;
+        }
+
+        /* --- HEADER FIXED PREMIUM --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(12, 13, 15, 0.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(211, 31, 38, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: var(--white-clean);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            color: var(--red-mechanic);
+            filter: drop-shadow(0 0 8px var(--red-neon));
+        }
+
+        .logo span {
+            color: var(--red-mechanic);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            padding: 10px 18px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover, .nav-link.active-nav {
+            color: var(--white-clean);
+            background: rgba(211, 31, 38, 0.1);
+            box-shadow: inset 0 -3px 0 var(--red-mechanic);
+        }
+
+        .cta-header {
+            background: linear-gradient(135deg, var(--red-mechanic), #800f13);
+            color: var(--white-clean);
+            padding: 14px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            box-shadow: var(--neon-glow);
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cta-header:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px var(--red-neon);
+        }
+
+        /* --- NAVIGATION INTERNE --- */
+        .page-content {
+            display: none;
+            padding-top: 85px;
+            animation: pageEffect 0.4s ease-out forwards;
+        }
+
+        .page-content.active-page {
+            display: block;
+        }
+
+        @keyframes pageEffect {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= PAGE 1 : ACCUEIL ================= */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(12, 13, 15, 0.60), rgba(12, 13, 15, 0.95)), 
+                        url('https://images.unsplash.com/photo-1617886322168-72b886573c3c?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+            border-bottom: 3px solid #1c1e22;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, var(--red-mechanic), transparent);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-badge {
+            font-family: 'Montserrat', sans-serif;
+            background: rgba(20, 21, 26, 0.9);
+            border-left: 4px solid var(--red-mechanic);
+            border-right: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--white-clean);
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            max-width: 950px;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 45px;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--red-mechanic), #950f13);
+            color: var(--white-clean);
+            padding: 20px 40px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: var(--neon-glow);
+            transition: var(--transition-smooth);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--red-neon);
+        }
+
+        .btn-secondary {
+            background: rgba(24, 26, 32, 0.85);
+            border: 2px solid var(--gray-metal);
+            color: var(--white-clean);
+            padding: 20px 40px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--white-clean);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* --- SECTION TITLES STANDARDS --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header span {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--red-mechanic);
+            text-transform: uppercase;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        /* --- SECTION : À PROPOS --- */
+        .about {
+            padding: 120px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.10fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-img-container {
+            position: relative;
+            padding: 15px;
+            background: linear-gradient(135deg, #23262d, #121316);
+            border-radius: 8px;
+            border: 2px solid var(--gray-metal);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+        }
+
+        .about-img-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 6px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--red-mechanic), transparent, var(--gray-metal));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .about-img-container img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            filter: grayscale(15%) contrast(110%);
+        }
+
+        .about-badge-heavy {
+            position: absolute;
+            bottom: -25px;
+            right: 30px;
+            background: var(--red-mechanic);
+            padding: 20px 35px;
+            border-radius: 4px;
+            box-shadow: var(--neon-glow);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .about-badge-heavy h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .about-badge-heavy p {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: rgba(255,255,255,0.8);
+            margin-top: 4px;
+        }
+
+        .about-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            line-height: 1.1;
+        }
+
+        .about-content p {
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 1.15rem;
+        }
+
+        .about-grid-heavy {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .about-card-heavy {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--gray-metal);
+            padding: 22px;
+            border-radius: 4px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .about-card-heavy i {
+            color: var(--red-mechanic);
+            font-size: 1.4rem;
+            margin-top: 3px;
+        }
+
+        .about-card-heavy h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .about-card-heavy p {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            margin-bottom: 0;
+        }
+
+        /* --- SECTION : AVANTAGES --- */
+        .advantages {
+            background: #090a0c;
+            padding: 120px 20px;
+            border-top: 2px solid #141619;
+        }
+
+        .advantages-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+        }
+
+        .adv-card-heavy {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 45px;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .adv-card-heavy:hover {
+            transform: translateY(-5px);
+            border-color: var(--red-mechanic);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .adv-card-heavy .icon-box {
+            width: 70px;
+            height: 70px;
+            background: #191b22;
+            border: 2px solid var(--gray-metal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        .adv-card-heavy .icon-box i {
+            font-size: 2rem;
+            color: var(--white-clean);
+        }
+
+        .adv-card-heavy:hover .icon-box {
+            background: var(--red-mechanic);
+            border-color: var(--red-neon);
+            box-shadow: var(--neon-glow);
+        }
+
+        .adv-card-heavy h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .adv-card-heavy p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* --- SECTION : GALERIE DE PURE MÉCANIQUE --- */
+        .gallery {
+            padding: 120px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item-heavy {
+            position: relative;
+            height: 320px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid #1f2229;
+        }
+
+        .gallery-item-heavy img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(115%) brightness(90%);
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-overlay-heavy {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(12,13,15,0.98) 15%, rgba(12,13,15,0.3) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 35px;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item-heavy:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-item-heavy:hover .gallery-overlay-heavy {
+            opacity: 1;
+        }
+
+        .gallery-overlay-heavy h3 {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .gallery-overlay-heavy p {
+            color: var(--red-neon);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+        }
+
+        /* --- SECTION : CONTACT, ZONE DE SERVICE & MAPS --- */
+        .contact {
+            padding: 120px 20px;
+            background: #090a0c;
+            border-top: 2px solid #141619;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 70px;
+        }
+
+        .contact-info-heavy h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .action-buttons-heavy {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-link-heavy {
+            padding: 22px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .btn-heavy-phone {
+            background: #059669;
+            color: var(--white-clean);
+            box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3);
+        }
+        .btn-heavy-phone:hover { background: #047857; transform: translateY(-2px); }
+
+        .btn-heavy-wa {
+            background: #128c7e;
+            color: var(--white-clean);
+            box-shadow: 0 10px 20px rgba(18, 140, 126, 0.3);
+        }
+        .btn-heavy-wa:hover { background: #0b665c; transform: translateY(-2px); }
+
+        .zone-heavy-card {
+            background: var(--bg-card);
+            border-left: 4px solid var(--red-mechanic);
+            padding: 35px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+
+        .zone-heavy-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Intégration propre de la carte Google Maps */
+        .maps-heavy-wrapper {
+            width: 100%;
+            height: 300px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid #23262d;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            filter: grayscale(40%) contrast(115%) invert(90%) hue-rotate(180deg); /* Style sombre/technique */
+        }
+
+        .maps-heavy-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .form-heavy-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 50px;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .form-grid-heavy {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-field.full {
+            grid-column: span 2;
+        }
+
+        .form-field label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--white-clean);
+            font-weight: 700;
+        }
+
+        .form-field input, .form-field select, .form-field textarea {
+            background: #0c0d0f;
+            border: 2px solid #23262d;
+            padding: 16px;
+            border-radius: 4px;
+            color: var(--white-clean);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+            outline: none;
+            border-color: var(--red-mechanic);
+        }
+
+
+        /* ================= PAGE 2 : SERVICES ================= */
+        .banner-heavy-services {
+            height: 45vh;
+            background: linear-gradient(rgba(12, 13, 15, 0.75), rgba(12, 13, 15, 0.98)), 
+                        url('https://images.unsplash.com/photo-1530047139112-05917bbd46e8?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 3px solid var(--red-mechanic);
+        }
+
+        .banner-heavy-services h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.8rem;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .services-heavy-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 35px;
+        }
+
+        .card-service-heavy {
+            background: var(--bg-card);
+            border: 2px solid #1e2127;
+            border-radius: 4px;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+        }
+
+        .card-service-heavy:hover {
+            transform: translateY(-6px);
+            border-color: var(--red-mechanic);
+            background: #16181d;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+        }
+
+        .service-top-box {
+            margin-bottom: 35px;
+        }
+
+        .service-heavy-icon {
+            font-size: 2.5rem;
+            color: var(--red-mechanic);
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .card-service-heavy h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .card-service-heavy p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .btn-card-action {
+            width: 100%;
+            background: #1f2229;
+            border: 1px solid var(--gray-metal);
+            color: var(--white-clean);
+            padding: 16px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .card-service-heavy:hover .btn-card-action {
+            background: linear-gradient(135deg, var(--red-mechanic), #950f13);
+            border-color: transparent;
+            box-shadow: var(--neon-glow);
+        }
+
+
+        /* --- FOOTER ATELIER LOURD --- */
+        footer {
+            background: #060708;
+            border-top: 3px solid #141619;
+            padding: 80px 20px 40px 20px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr 0.8fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-intro p {
+            color: var(--text-muted);
+            margin-top: 25px;
+            max-width: 450px;
+            font-size: 1.05rem;
+        }
+
+        .footer-links h4 {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: var(--white-clean);
+            padding-left: 6px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            border-top: 1px solid #1a1d24;
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray-light);
+            font-size: 0.95rem;
+        }
+
+        /* --- DESIGN ADAPTATIF MOBILE --- */
+        @media (max-width: 1100px) {
+            .hero h1 { font-size: 3rem; }
+            .about { grid-template-columns: 1fr; padding: 60px 20px; }
+            .about-img-container img { height: 450px; }
+            .contact-container { grid-template-columns: 1fr; gap: 50px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu, .cta-header { display: none; }
+            .hero h1 { font-size: 2.3rem; }
+            .hero p { font-size: 1.1rem; }
+            .form-grid-heavy { grid-template-columns: 1fr; }
+            .form-field.full { grid-column: span 1; }
+            .action-buttons-heavy { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRE DE NAVIGATION FIXE -->
+    <header>
+        <div class="nav-container">
+            <a class="logo" onclick="switchPage('home')">
+                <i class="fa-solid fa-gears"></i> MECANO<span>PRO</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a class="nav-link active-nav" id="nav-home" onclick="switchPage('home')">Atelier Accueil</a></li>
+                <li><a class="nav-link" id="nav-services" onclick="switchPage('services')">Services Mécaniques</a></li>
+            </ul>
+            <a href="tel:4388336583" class="cta-header"><i class="fa-solid fa-phone"></i> 438-833-6583</a>
+        </div>
+    </header>
+
+    <!-- ================= PAGE 1 : ACCUEIL & PRÉSENTATION ================= -->
+    <div id="page-home" class="page-content active-page">
+        
+        <!-- HERO ATELIER LOURD -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-badge"><i class="fa-solid fa-wrench"></i> 20+ Ans d'expérience de pure mécanique de terrain</div>
+                <h1>Le garage poids lourd et léger <br>qui vient <span class="red-highlight">directement chez vous</span></h1>
+                <p>Pas de chichi, pas de blabla. Remplacement de moteurs, mécanique lourde, suspensions, freins et diagnostics électroniques complexes à l'aide d'outillage pro. Directement chez vous ou sur la route.</p>
+                <div class="hero-buttons">
+                    <a href="tel:4388336583" class="btn-primary"><i class="fa-solid fa-phone-flip"></i> Appeler : 438-833-6583</a>
+                    <a onclick="scrollToContact()" class="btn-secondary"><i class="fa-solid fa-toolbox"></i> Demander un Diagnostic</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION À PROPOS -->
+        <section class="about reveal">
+            <div class="about-img-container">
+                <img src="voisin.jpg" alt="Youssef Mhirigue - Expert Mécanicien Élite">[cite: 1]
+                <div class="about-badge-heavy">
+                    <h3>20+ ANS</h3>
+                    <p>Mains dans le bloc</p>
+                </div>
+            </div>
+            <div class="about-content">
+                <span>MÉCANICIEN DE TERRAIN</span>
+                <h2>Pas de compromis. Rien que de la mécanique pure.</h2>
+                <p>Je démonte, je diagnostique, je répare. Équipé d'un camion d'intervention complet embarquant tout l'outillage lourd nécessaire, j'élimine l'intermédiaire des concessions. Des moteurs ouverts aux systèmes de freinage complexes, vous voyez exactement ce qui est fait sur votre véhicule avec une transparence totale.</p>
+                
+                <div class="about-grid-heavy">
+                    <div class="about-card-heavy">
+                        <i class="fa-solid fa-oil-can"></i>
+                        <div>
+                            <h4>Moteurs & Distribution</h4>
+                            <p>Courroies, culasses, remplacement de blocs complets sur place.</p>
+                        </div>
+                    </div>
+                    <div class="about-card-heavy">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <div>
+                            <h4>Scanners OBD2 Pro</h4>
+                            <p>Lecture en temps réel des calculateurs d'injection et d'allumage.</p>
+                        </div>
+                    </div>
+                    <div class="about-card-heavy">
+                        <i class="fa-solid fa-truck-pickup"></i>
+                        <div>
+                            <h4>Atelier Mobile Armé</h4>
+                            <p>Tout le matériel de levage et d'extraction lourd embarqué sur route.</p>
+                        </div>
+                    </div>
+                    <div class="about-card-heavy">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <h4>Honnêteté Terrain</h4>
+                            <p>Vous payez pour la panne réelle, diagnostiquée sous vos yeux.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION AVANTAGES -->
+        <section class="advantages">
+            <div class="section-header reveal">
+                <span>PRESTATIONS ROBUSTES</span>
+                <h2>L'Efficacité d'un Atelier Mobile Élite</h2>
+            </div>
+            <div class="advantages-grid">
+                <div class="adv-card-heavy reveal">
+                    <div class="icon-box"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                    <h3>Déplacement à domicile</h3>
+                    <p>Intervention directe sur vos aires de stationnement privées ou professionnelles avec groupe électrogène et compresseur.</p>
+                </div>
+                <div class="adv-card-heavy reveal">
+                    <div class="icon-box"><i class="fa-solid fa-microchip"></i></div>
+                    <h3>Diagnostic Rapide</h3>
+                    <p>Analyse électronique poussée des anomalies moteur, multiplexage et capteurs ABS/ESP.</p>
+                </div>
+                <div class="adv-card-heavy reveal">
+                    <div class="icon-box"><i class="fa-solid fa-road-spikes"></i></div>
+                    <h3>Service d'urgence</h3>
+                    <p>Bloqué sur le bas-côté avec un alternateur HS ou un problème d'allumage ? Intervention mécanique rapide sur zone.</p>
+                </div>
+                <div class="adv-card-heavy reveal">
+                    <div class="icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h3>Travail Professionnel</h3>
+                    <p>Vrai savoir-faire acquis en 20 ans de pratique intense sur les architectures moteurs européennes, américaines et asiatiques.</p>
+                </div>
+                <div class="adv-card-heavy reveal">
+                    <div class="icon-box"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Disponible 7 jours</h3>
+                    <p>Les pannes moteurs majeures surviennent n'importe quand. Notre ligne d'intervention pro reste active en permanence.</p>
+                </div>
+                <div class="adv-card-heavy reveal">
+                    <div class="icon-box"><i class="fa-solid fa-hammer"></i></div>
+                    <h3>Équipement complet</h3>
+                    <p>Presse hydraulique portative, clés à choc industrielles, extracteurs spécifiques : aucun écrou ne nous résiste.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION GALERIE -->
+        <section class="gallery">
+            <div class="section-header reveal">
+                <span>IMAGES DE TERRAIN</span>
+                <h2>Opérations Mécaniques Réelles</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item-heavy reveal">
+                    <img src="https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&q=80&w=600" alt="Mécanicien automobile inspectant un moteur">
+                    <div class="gallery-overlay-heavy"><h3>Expert au travail</h3><p>Diagnostic approfondi sous le capot</p></div>
+                </div>
+                <div class="gallery-item-heavy reveal">
+                    <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=600" alt="Pure mécanique bloc moteur ouvert">
+                    <div class="gallery-overlay-heavy"><h3>Pure Mécanique</h3><p>Restauration et calage de distribution lourde</p></div>
+                </div>
+                <div class="gallery-item-heavy reveal">
+                    <img src="https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&q=80&w=600" alt="Mains d'un mécanicien travaillant sur des engrenages">
+                    <div class="gallery-overlay-heavy"><h3>Mains dans le bloc</h3><p>Ajustement de précision sur transmission</p></div>
+                </div>
+                <div class="gallery-item-heavy reveal">
+                    <img src="https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?auto=format&fit=crop&q=80&w=600" alt="Remplacement système de freinage mécanique auto">
+                    <div class="gallery-overlay-heavy"><h3>Trains & Freinage</h3><p>Remplacement disques, étriers et étalonnage</p></div>
+                </div>
+                <div class="gallery-item-heavy reveal">
+                    <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=600" alt="Composants et engrenages mécaniques auto">
+                    <div class="gallery-overlay-heavy"><h3>Composants Internes</h3><p>Changement de pièces de suralimentation</p></div>
+                </div>
+                <div class="gallery-item-heavy reveal">
+                    <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600" alt="Mécanicien serrage de culasse à la clé pro">
+                    <div class="gallery-overlay-heavy"><h3>Serrage de précision</h3><p>Utilisation d'outillage lourd à domicile</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CONTACT, ADRESSE ET GOOGLE MAPS INTERACTIVE -->
+        <section class="contact" id="contact-section">
+            <div class="contact-container">
+                <div class="contact-info-heavy reveal">
+                    <h3>Besoin d'une intervention mécanique immédiate ?</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 25px;">Pas de perte de temps. Appelez directement l'atelier de garde mobile ou envoyez un message WhatsApp pour un déploiement rapide sur site.</p>
+                    
+                    <div class="action-buttons-heavy">
+                        <a href="tel:4388336583" class="action-link-heavy btn-heavy-phone"><i class="fa-solid fa-phone-volume"></i> Appeler le 438-833-6583</a>
+                        <a href="https://wa.me/14388336583" target="_blank" class="action-link-heavy btn-heavy-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp Direct</a>
+                    </div>
+
+                    <div class="zone-heavy-card">
+                        <h4><i class="fa-solid fa-location-dot" style="color: var(--red-neon);"></i> Notre Atelier Central</h4>
+                        <p style="color: var(--white-clean); font-weight: 600; margin-bottom: 5px;">231 rue Goyette, Longueuil, QC J4J 2X1</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Point de départ de nos unités mobiles. Prise en charge et dépannage lourd dans un rayon de 50km (Rive-Sud et environs).</p>
+                    </div>
+
+                    <!-- MODULE INTEGRATION GOOGLE MAPS PROFESSIONNEL -->
+                    <div class="maps-heavy-wrapper">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m4!2m3!1s0x4cc91b619717013d%3A0xc6cb1c7df47e70db!2s231%20Rue%20Goyette%2C%20Longueuil%2C%20QC%20J4J%202X1!8m2!3d45.5248!4d-73.4772!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91b619717013d%3A0xc6cb1c7df47e70db!2s231%20Rue%20Goyette%2C%20Longueuil%2C%20QC%20J4J%202X1!5e0!3m2!1sfr!2sca!4v1716840000000!5m2!1sfr!2sca" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="form-heavy-wrapper reveal">
+                    <form onsubmit="event.preventDefault(); alert('Votre demande de diagnostic moteur a été transmise à Mecano-Pro. Préparation de l\'atelier mobile en cours.');">
+                        <div class="form-grid-heavy">
+                            <div class="form-field">
+                                <label>Votre Nom</label>
+                                <input type="text" placeholder="Ex: Marc Bouchard" required>
+                            </div>
+                            <div class="form-group form-field">
+                                <label>Téléphone de contact</label>
+                                <input type="tel" placeholder="Ex: 438-833-6583" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Véhicule (Marque, Modèle, Année)</label>
+                                <input type="text" placeholder="Ex: Ford F-150 2018 V8" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Panne suspectée / Symptôme</label>
+                                <select required>
+                                    <option value="">Sélectionnez le symptôme</option>
+                                    <option value="moteur">Bruit Moteur / Courroie / Fumée</option>
+                                    <option value="obd">Voyant Allumé / Diagnostic Électronique</option>
+                                    <option value="freins">Freinage défaillant / Pédale molle</option>
+                                    <option value="demarrage">Ne démarre plus / Problème Batterie</option>
+                                </select>
+                            </div>
+                            <div class="form-field full">
+                                <label>Détails des réparations à prévoir</label>
+                                <textarea rows="4" placeholder="Indiquez ici si le moteur tourne, s'il y a une fuite d'huile ou si vous avez besoin d'un changement de pièces précis..."></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;"><i class="fa-solid fa-paper-plane"></i> Envoyer la demande d'intervention</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+    <!-- ================= PAGE 2 : SERVICES DÉTAILLÉS ================= -->
+    <div id="page-services" class="page-content">
+        
+        <!-- BANNER SERVICES DE POINTE -->
+        <section class="banner-heavy-services">
+            <div>
+                <h1>Catalogue de <span class="red-highlight">Prestations Mécaniques</span></h1>
+                <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 700px; margin: 15px auto 0 auto;">De l'entretien d'urgence au démontage de bloc moteur complet à votre domicile.</p>
+            </div>
+        </section>
+
+        <!-- SERVICES DETAILED GRID -->
+        <div class="services-heavy-grid">
+            
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-oil-can"></i></div>
+                    <h3>Changement d'Huile & Filtres</h3>
+                    <p>Vidange haute performance sur place avec aspiration ou gravité. Remplacement systématique des filtres à huile et contrôle des impuretés dans le carter.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Changement d\'huile')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-laptop-medical"></i></div>
+                    <h3>Diagnostic Électronique & OBD2</h3>
+                    <p>Connexion directe aux modules ECU. Effacement des codes d'erreur, recalibrage des capteurs et détection des ratés d'allumage ou d'injection.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Diagnostic électronique')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-gears"></i></div>
+                    <h3>Réparation Moteur Lourde</h3>
+                    <p>Remplacement de la courroie ou chaîne de distribution, joints de culasse défectueux, pompes à eau et réparation interne de la segmentation.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Réparation moteur')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-car-battery"></i></div>
+                    <h3>Système Batterie & Tension</h3>
+                    <p>Remplacement immédiat de batteries défaillantes. Analyse du courant de fuite et nettoyage complet des cosses oxydées.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Batterie')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Alternateur & Démarreur</h3>
+                    <p>Démontage et remplacement des dynamos, alternateurs et démarreurs grippés. Restauration de l'alimentation électrique d'origine.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Alternateur & Démarreur')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-disc-drive"></i></div>
+                    <h3>Système de Freinage Dur</h3>
+                    <p>Changement des disques voilés, plaquettes usées, étriers grippés et flexibles de frein. Purge complète du circuit hydraulique sous pression.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Freins')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-circle-notch"></i></div>
+                    <h3>Changement de Pneus sur Place</h3>
+                    <p>Démontage, inspection des trains roulants, installation de pneus neufs et serrage au couple recommandé par le constructeur.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Pneus')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-link"></i></div>
+                    <h3>Suspension & Triangles</h3>
+                    <p>Remplacement d'amortisseurs affaissés, rotules de direction mortes et silentblocs écrasés pour éliminer les claquements.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Suspension')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="card-service-heavy">
+                <div class="service-top-box">
+                    <div class="service-heavy-icon"><i class="fa-solid fa-truck-pickup"></i></div>
+                    <h3>Démarrage Mobile d'Urgence</h3>
+                    <p>Intervention sur route ouverte ou stationnement en cas de blocage mécanique complet pour une remise en route immédiate.</p>
+                </div>
+                <button class="btn-card-action" onclick="openContactWithService('Démarrage sur route')">Commander ce service <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER GENERAL ATELIER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-intro">
+                <a class="logo" style="cursor:pointer;" onclick="switchPage('home')">
+                    <i class="fa-solid fa-gears"></i> MECANO<span>PRO</span>
+                </a>
+                <p>Votre atelier lourd mobile de confiance. Plus de 20 ans d'intervention acharnée sur les moteurs à combustion et l'électronique embarquée.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Sections</h4>
+                <ul>
+                    <li><a onclick="switchPage('home')">Atelier Accueil</a></li>
+                    <li><a onclick="switchPage('services')">Nos Prestations</a></li>
+                    <li><a onclick="scrollToContact()">Planifier un Diagnostic</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Siège & Ligne Directe</h4>
+                <ul>
+                    <li><span style="color:var(--white-clean); font-weight:700;"><i class="fa-solid fa-location-dot" style="color:var(--red-mechanic); margin-right:10px;"></i> 231 rue Goyette, Longueuil, QC J4J 2X1</span></li>
+                    <li><span style="color:var(--white-clean); font-weight:700;"><i class="fa-solid fa-phone" style="color:var(--red-mechanic); margin-right:10px;"></i> 438-833-6583</span></li>
+                    <li><span style="color:var(--white-clean);"><i class="fa-solid fa-envelope" style="color:var(--red-mechanic); margin-right:10px;"></i> atelier@mecano-pro.com</span></li>
+                    <li><span style="color:var(--white-clean);"><i class="fa-solid fa-screwdriver-wrench" style="color:var(--red-mechanic); margin-right:10px;"></i> Service Mobile : 7j/7</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 MECANO-PRO. Tous droits réservés. Ateliers Mobiles Automobiles Experts.</p>
+            <p><i class="fa-solid fa-circle-check" style="color: #059669;"></i> Couvert par une assurance responsabilité professionnelle complète</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Gestion de l'architecture Single Page
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            document.getElementById('page-' + pageId).classList.add('active-page');
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-nav');
+            });
+            document.getElementById('nav-' + pageId).classList.add('active-nav');
+
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            initScrollReveal();
+        }
+
+        // Scroll fluide vers la zone de contact
+        function scrollToContact() {
+            switchPage('home');
+            setTimeout(() => {
+                document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });
+            }, 50);
+        }
+
+        // Liaison intelligente entre les boutons de service et le formulaire
+        function openContactWithService(serviceName) {
+            switchPage('home');
+            setTimeout(() => {
+                document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });
+                const detailField = document.querySelector('.form-heavy-wrapper textarea');
+                if(detailField) {
+                    detailField.value = `Bonjour, je requiers une intervention d'urgence pour le service suivant : ${serviceName}. `;
+                    detailField.focus();
+                }
+            }, 100);
+        }
+
+        // Animations au défilement (Scroll Reveal)
+        function initScrollReveal() {
+            const items = document.querySelectorAll('.reveal');
+            
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.05,
+                rootMargin: "0px 0px -30px 0px"
+            });
+
+            items.forEach(item => {
+                scrollObserver.observe(item);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollReveal();
+        });
+    </script>
+</body>
+</html>
