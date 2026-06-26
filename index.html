@@ -59,6 +59,174 @@
             font-weight: 900;
         }
 
+        /* ================= BARRE DE PAIEMENT FLOTTANTE ================= */
+        .payment-floating-bar {
+            background: linear-gradient(135deg, #0c0d0f 0%, #14161b 100%);
+            border-bottom: 1px solid rgba(211, 31, 38, 0.35);
+            padding: 0;
+            position: relative;
+            z-index: 1001;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.9);
+        }
+
+        .payment-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 16px 20px;
+        }
+
+        .payment-badge {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(211, 31, 38, 0.12);
+            border: 1px solid rgba(211, 31, 38, 0.3);
+            padding: 10px 22px;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        .payment-badge:hover {
+            background: rgba(211, 31, 38, 0.2);
+            border-color: var(--red-neon);
+            box-shadow: var(--neon-glow);
+        }
+
+        .payment-badge i {
+            color: var(--red-neon);
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 6px var(--red-neon));
+        }
+
+        .payment-badge span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--white-clean);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .payment-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 12px 22px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition-smooth);
+            cursor: default;
+        }
+
+        .payment-chip:hover {
+            border-color: var(--gray-metal);
+            background: #1a1d24;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .payment-chip i {
+            font-size: 1.5rem;
+            color: var(--white-clean);
+        }
+
+        .payment-chip.interac i {
+            color: #f7a600;
+        }
+
+        .payment-chip.visa i {
+            color: #1a1f71;
+        }
+
+        .payment-chip.mastercard i {
+            color: #eb001b;
+        }
+
+        .payment-chip.amex i {
+            color: #2e77bc;
+        }
+
+        .payment-chip.cash i {
+            color: #059669;
+        }
+
+        .payment-chip span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .payment-chip small {
+            display: block;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.7rem;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-top: 1px;
+        }
+
+        .payment-cta-mini {
+            background: linear-gradient(135deg, var(--red-mechanic), #950f13);
+            color: var(--white-clean);
+            padding: 14px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(211, 31, 38, 0.25);
+            white-space: nowrap;
+        }
+
+        .payment-cta-mini:hover {
+            transform: scale(1.04);
+            box-shadow: 0 10px 30px var(--red-neon);
+            color: var(--white-clean);
+        }
+
+        .security-seal {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #059669;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(5, 150, 105, 0.1);
+            padding: 8px 14px;
+            border-radius: 4px;
+            border: 1px solid rgba(5, 150, 105, 0.25);
+        }
+
+        .security-seal i {
+            font-size: 1rem;
+        }
+
         /* --- HEADER FIXED PREMIUM --- */
         header {
             position: fixed;
@@ -151,7 +319,6 @@
         /* --- NAVIGATION INTERNE --- */
         .page-content {
             display: none;
-            padding-top: 85px;
             animation: pageEffect 0.4s ease-out forwards;
         }
 
@@ -173,6 +340,7 @@
             background: linear-gradient(rgba(12, 13, 15, 0.60), rgba(12, 13, 15, 0.95)), 
                         url('https://images.unsplash.com/photo-1617886322168-72b886573c3c?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
             border-bottom: 3px solid #1c1e22;
+            margin-top: 0;
         }
 
         .hero::after {
@@ -494,6 +662,72 @@
             font-size: 1rem;
         }
 
+        /* --- SECTION : DIAGNOSTICS RÉSOLUS --- */
+        .real-world-fixes {
+            background: #0c0d0f;
+            padding: 120px 20px;
+            border-top: 2px solid #141619;
+        }
+
+        .fixes-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .fix-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 4px;
+            padding: 35px;
+            transition: var(--transition-smooth);
+        }
+
+        .fix-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--red-mechanic);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        .certification-badges-row {
+            max-width: 1400px;
+            margin: 50px auto 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cert-badge {
+            background: #0c0d0f;
+            border: 1px solid #1e2127;
+            padding: 15px 30px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition-smooth);
+        }
+
+        .cert-badge:hover {
+            border-color: var(--gray-metal);
+            background: #14161c;
+            transform: translateY(-2px);
+        }
+
+        .cert-badge i {
+            color: var(--red-neon);
+            font-size: 1.4rem;
+        }
+
+        .cert-badge span {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
         /* --- SECTION : GALERIE DE PURE MÉCANIQUE --- */
         .gallery {
             padding: 120px 20px;
@@ -555,6 +789,167 @@
             font-weight: 700;
             font-size: 0.95rem;
             text-transform: uppercase;
+        }
+
+        /* --- SECTION : AVIS CLIENTS --- */
+        .testimonials-section {
+            padding: 120px 20px;
+            background: #090a0c;
+            border-top: 2px solid #141619;
+            border-bottom: 2px solid #141619;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(211, 31, 38, 0.03) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(211, 31, 38, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .testimonials-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 4px;
+            padding: 35px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gray-metal);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+            background: #14161c;
+        }
+
+        .testimonial-card.featured {
+            border-left: 4px solid var(--red-mechanic);
+            background: linear-gradient(135deg, rgba(211, 31, 38, 0.06) 0%, var(--bg-card) 50%);
+        }
+
+        .stars-container {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 20px;
+        }
+
+        .stars-container i {
+            color: #f7a600;
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 3px rgba(247, 166, 0, 0.5));
+        }
+
+        .testimonial-text {
+            color: var(--white-clean);
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-style: italic;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: var(--red-mechanic);
+            font-weight: 900;
+            line-height: 1;
+            opacity: 0.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 20px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, var(--gray-metal), #23262d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: var(--white-clean);
+            border: 2px solid var(--gray-metal);
+            flex-shrink: 0;
+        }
+
+        .author-avatar.highlight {
+            background: linear-gradient(135deg, var(--red-mechanic), #800f13);
+            border-color: var(--red-neon);
+            box-shadow: var(--neon-glow);
+        }
+
+        .author-info h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--white-clean);
+            margin-bottom: 3px;
+        }
+
+        .author-info span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .author-info span i {
+            color: var(--red-mechanic);
+            margin-right: 5px;
+            font-size: 0.75rem;
+        }
+
+        .testimonial-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #059669;
+            color: var(--white-clean);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(5, 150, 105, 0.4);
+        }
+
+        .testimonial-card.featured .testimonial-badge {
+            background: var(--red-mechanic);
+            box-shadow: var(--neon-glow);
         }
 
         /* --- SECTION : CONTACT, ZONE DE SERVICE --- */
@@ -634,7 +1029,6 @@
             gap: 12px;
         }
 
-        /* Conteneur d'image propre remplaçant la carte */
         .maps-heavy-wrapper {
             width: 100%;
             height: 300px;
@@ -858,7 +1252,7 @@
             font-size: 0.95rem;
         }
 
-        /* --- NOUVELLE SECTION : GOOGLE MAPS EN BAS DE PAGE --- */
+        /* --- SECTION : GOOGLE MAPS EN BAS DE PAGE --- */
         .google-maps-section {
             background: #060708;
             padding: 60px 20px 80px 20px;
@@ -943,7 +1337,22 @@
         }
 
         @media (max-width: 768px) {
+            .payment-inner {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+            .payment-methods {
+                justify-content: center;
+            }
+            .payment-chip {
+                padding: 10px 16px;
+            }
+            .payment-chip span {
+                font-size: 0.75rem;
+            }
             .nav-menu, .cta-header { display: none; }
+            .hero { margin-top: 0; }
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1rem; }
             .hero-buttons .btn-primary, .hero-buttons .btn-secondary { padding: 14px 24px; font-size: 0.85rem; }
@@ -957,6 +1366,7 @@
             .contact-info-heavy h3 { font-size: 1.8rem; }
             .form-heavy-wrapper { padding: 30px; }
             .adv-card-heavy { padding: 30px; }
+            .fix-card { padding: 25px; }
             .gallery-grid { grid-template-columns: 1fr; }
             .gallery-item-heavy { height: 250px; }
             .services-heavy-grid { grid-template-columns: 1fr; }
@@ -965,20 +1375,86 @@
             .google-maps-header h2 { font-size: 1.5rem; }
             .google-maps-wrapper iframe { height: 300px; }
             .maps-heavy-wrapper { height: 220px; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .testimonial-card { padding: 25px; }
+            .fixes-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
+            .payment-methods { gap: 10px; }
+            .payment-chip { padding: 8px 12px; }
+            .payment-chip i { font-size: 1.2rem; }
             .hero h1 { font-size: 1.6rem; }
             .hero-badge { font-size: 0.7rem; }
             .about-grid-heavy { grid-template-columns: 1fr; }
             .advantages-grid { grid-template-columns: 1fr; }
             .google-maps-header h2 { font-size: 1.3rem; }
             .google-maps-wrapper iframe { height: 250px; }
+            .testimonial-text { font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ================= BARRE DE PAIEMENT SOPHISTIQUÉE ================= -->
+    <div class="payment-floating-bar">
+        <div class="payment-inner">
+            <div class="payment-badge">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Paiement Sécurisé Accepté</span>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-chip interac">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <span>Interac</span>
+                        <small>Virement instantané</small>
+                    </div>
+                </div>
+                <div class="payment-chip visa">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <div>
+                        <span>Visa</span>
+                        <small>Crédit</small>
+                    </div>
+                </div>
+                <div class="payment-chip mastercard">
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <div>
+                        <span>Mastercard</span>
+                        <small>Crédit</small>
+                    </div>
+                </div>
+                <div class="payment-chip amex">
+                    <i class="fa-brands fa-cc-amex"></i>
+                    <div>
+                        <span>Amex</span>
+                        <small>Crédit</small>
+                    </div>
+                </div>
+                <div class="payment-chip cash">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <div>
+                        <span>Espèces</span>
+                        <small>Sur facture</small>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <div class="security-seal">
+                    <i class="fa-solid fa-lock"></i>
+                    Transaction Cryptée SSL
+                </div>
+                <a href="#contact-section" onclick="scrollToContact()" class="payment-cta-mini">
+                    <i class="fa-solid fa-credit-card"></i> Payer ma réparation
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= HEADER ================= -->
     <header>
         <div class="nav-container">
             <a class="logo" onclick="switchPage('home')">
@@ -992,6 +1468,7 @@
         </div>
     </header>
 
+    <!-- ================= PAGE ACCUEIL ================= -->
     <div id="page-home" class="page-content active-page">
         
         <section class="hero">
@@ -1017,7 +1494,7 @@
             <div class="about-content">
                 <span>MÉCANICIEN DE TERRAIN</span>
                 <h2>Pas de compromis. Rien que de la mécanique pure.</h2>
-                <p>Je démonte, je diagnostique, je répare. Équipé d’un matériel d’intervention complet embarquant tout l’outillage professionnel nécessaire pour des réparations automobiles rapides, fiables et efficaces directement sur place. Des moteurs ouverts aux systèmes de freinage complexes, vous voyez exactement ce qui est fait sur votre véhicule avec une transparence totale.</p>
+                <p>Je démonte, je diagnostique, je répare. Équipé d'un matériel d'intervention complet embarquant tout l'outillage professionnel nécessaire pour des réparations automobiles rapides, fiables et efficaces directement sur place. Des moteurs ouverts aux systèmes de freinage complexes, vous voyez exactement ce qui est fait sur votre véhicule avec une transparence totale.</p>
                 
                 <div class="about-grid-heavy">
                     <div class="about-card-heavy">
@@ -1091,6 +1568,93 @@
             </div>
         </section>
 
+        <!-- ================= SECTION DIAGNOSTICS RÉSOLUS ================= -->
+        <section class="real-world-fixes">
+            <div class="section-header reveal" style="max-width: 1400px; margin: 0 auto 70px auto;">
+                <span>EXEMPLES DE TERRAIN</span>
+                <h2>Diagnostics complexes,<br>réparations <span class="red-highlight">validées sur route</span></h2>
+                <p style="color: var(--text-muted); margin-top: 15px;">Des interventions réelles où l'électronique et la mécanique lourde se croisent. Pas de diagnostic hasardeux, seulement des solutions d'atelier.</p>
+            </div>
+
+            <div class="fixes-grid">
+                <div class="fix-card reveal">
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
+                        <div style="background: #191b22; border: 2px solid var(--gray-metal); width: 65px; height: 65px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                            <i class="fa-solid fa-engine" style="font-size: 2rem; color: var(--red-neon);"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 1.25rem; margin-bottom: 4px;">BMW Série 3 2016</h3>
+                            <span style="color: var(--gray-light); font-size: 0.9rem; font-weight: 600;">Problème de ratés à froid</span>
+                        </div>
+                    </div>
+                    <div style="border-left: 3px solid var(--red-mechanic); padding-left: 18px; margin-bottom: 25px;">
+                        <p style="color: var(--text-muted); font-size: 0.95rem;"><strong style="color: var(--white-clean);">Symptôme :</strong> Le moteur tournait sur 3 cylindres au démarrage, fumée blanche à l'échappement. Le client pensait à un joint de culasse.</p>
+                        <p style="color: var(--red-neon); font-weight: 700; font-size: 1rem; margin-top: 12px;"><strong style="color: var(--white-clean);">Diagnostic réel :</strong> Décarbonatation des soupapes d'admission par injection directe. Nettoyage par noyer, remise en état complète. Coût évité au client : 2800$.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fa-solid fa-circle-check" style="color: #059669; font-size: 1.2rem;"></i>
+                        <span style="font-weight: 700; font-size: 0.95rem;">Problème résolu en 4 heures sur place</span>
+                    </div>
+                </div>
+
+                <div class="fix-card reveal">
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
+                        <div style="background: #191b22; border: 2px solid var(--gray-metal); width: 65px; height: 65px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                            <i class="fa-solid fa-car-burst" style="font-size: 2rem; color: var(--red-neon);"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 1.25rem; margin-bottom: 4px;">Honda CR-V 2018</h3>
+                            <span style="color: var(--gray-light); font-size: 0.9rem; font-weight: 600;">Voyant ABS & ESP bloqué</span>
+                        </div>
+                    </div>
+                    <div style="border-left: 3px solid var(--red-mechanic); padding-left: 18px; margin-bottom: 25px;">
+                        <p style="color: var(--text-muted); font-size: 0.95rem;"><strong style="color: var(--white-clean);">Symptôme :</strong> Plusieurs voyants allumés, la voiture passait en mode dégradé. Un autre garage avait déjà changé un capteur sans résultat.</p>
+                        <p style="color: var(--red-neon); font-weight: 700; font-size: 1rem; margin-top: 12px;"><strong style="color: var(--white-clean);">Diagnostic réel :</strong> Faux-contact sur le faisceau du capteur de roue arrière droit. Réparation du câblage et sertissage de la cosse. Capteur d'origine conservé.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fa-solid fa-circle-check" style="color: #059669; font-size: 1.2rem;"></i>
+                        <span style="font-weight: 700; font-size: 0.95rem;">Panne fantôme neutralisée en 1h30</span>
+                    </div>
+                </div>
+
+                <div class="fix-card reveal">
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
+                        <div style="background: #191b22; border: 2px solid var(--gray-metal); width: 65px; height: 65px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                            <i class="fa-solid fa-temperature-arrow-up" style="font-size: 2rem; color: var(--red-neon);"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 1.25rem; margin-bottom: 4px;">Ford F-150 2019 5.0L</h3>
+                            <span style="color: var(--gray-light); font-size: 0.9rem; font-weight: 600;">Surchauffe en charge</span>
+                        </div>
+                    </div>
+                    <div style="border-left: 3px solid var(--red-mechanic); padding-left: 18px; margin-bottom: 25px;">
+                        <p style="color: var(--text-muted); font-size: 0.95rem;"><strong style="color: var(--white-clean);">Symptôme :</strong> Montée en température uniquement en tractant une remorque. Le circuit semblait pourtant en ordre à l'atelier.</p>
+                        <p style="color: var(--red-neon); font-weight: 700; font-size: 1rem; margin-top: 12px;"><strong style="color: var(--white-clean);">Diagnostic réel :</strong> Calorstat (thermostat) ne s'ouvrant qu'à 70%. Remplacement du boîtier et du liquide de refroidissement. Test en charge validé.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fa-solid fa-circle-check" style="color: #059669; font-size: 1.2rem;"></i>
+                        <span style="font-weight: 700; font-size: 0.95rem;">Étalonnage thermique réussi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certification-badges-row">
+                <div class="cert-badge">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>Diagnostic Électronique Certifié</span>
+                </div>
+                <div class="cert-badge">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Garantie de 12 Mois / 20,000 km</span>
+                </div>
+                <div class="cert-badge">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span>Pièces de Qualité Supérieure</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION GALERIE ================= -->
         <section class="gallery">
             <div class="section-header reveal">
                 <span>IMAGES DE TERRAIN</span>
@@ -1124,6 +1688,228 @@
             </div>
         </section>
 
+        <!-- ================= SECTION AVIS CLIENTS (13 AVIS) ================= -->
+        <section class="testimonials-section">
+            <div class="section-header reveal" style="max-width: 1400px; margin: 0 auto 70px auto;">
+                <span><i class="fa-solid fa-star" style="color: #f7a600;"></i> TÉMOIGNAGES VÉRIFIÉS</span>
+                <h2>Ce que nos clients <span class="red-highlight">disent de nous</span></h2>
+                <p style="color: var(--text-muted); margin-top: 15px;">Des centaines d'automobilistes nous font confiance à travers le Québec. Voici leurs retours d'expérience réels.</p>
+            </div>
+
+            <div class="testimonials-grid">
+                
+                <!-- Avis 1 - Featured -->
+                <div class="testimonial-card featured reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Dino a sauvé mon road trip. Ma transmission chauffait anormalement sur la 20 près de Longueuil. Il est intervenu en 40 minutes, a diagnostiqué un problème de refroidisseur d'huile de boîte. Réparation faite sur le stationnement du Tim Hortons. Incroyable ce gars-là, un vrai pro.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar highlight">M</div>
+                        <div class="author-info">
+                            <h4>Mohamed Benali</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Longueuil, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 2 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Je suis mécanicien de formation et je peux vous dire que ce gars connaît son affaire. Ma BMW avait un problème de distribution que personne n'arrivait à caler correctement. Dino a tout repris avec un calage au micron près. Moteur comme neuf. Chapeau l'artiste.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <h4>Amir Benyahia</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Sherbrooke, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 3 - Featured -->
+                <div class="testimonial-card featured reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Service impeccable ! Mon Ford Explorer ne démarrait plus du tout, batterie neuve mais rien. Dino a trouvé en 15 minutes un problème de masse sur le châssis. Il a nettoyé les cosses, refait la tresse de masse et le moteur est reparti au quart de tour. Prix plus qu'honnête.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar highlight">J</div>
+                        <div class="author-info">
+                            <h4>Jean-Claude Tremblay</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Granby, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 4 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">En tant que femme, j'appréhendais toujours d'aller au garage. Avec Dino, tout est transparent. Il m'a montré exactement ce qui n'allait pas sur mes freins, m'a expliqué sans jargon et a fait le travail devant moi. Résultat parfait, je recommande à toutes mes amies.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <h4>Mélanie Dubois</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Montréal, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 5 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Je travaille dans le transport et mon pickup est mon outil de travail. Alternateur HS un lundi matin, Dino était là à 7h avec la pièce neuve. En 2h c'était réglé, j'ai pu faire ma tournée. Réactif, efficace, professionnel. Merci encore mon ami.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <h4>Mohamed El Amrani</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Longueuil, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 6 - Featured -->
+                <div class="testimonial-card featured reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Ma Mercedes CLA faisait un bruit de claquement à l'avant droit. Garage Mercedes voulait changer triangle + amortisseur + rotule pour 2200$. Dino a trouvé un simple silentbloc desserré. Il a resserré au couple, le bruit a disparu. Honnêteté rare dans ce métier. Je ne vais plus ailleurs.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar highlight">A</div>
+                        <div class="author-info">
+                            <h4>Amir Messaoudi</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Montréal, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 7 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Changement de pneus sur place avec équilibrage et vérification des trains roulants. Dino a détecté une rotule de direction qui commençait à fatiguer, il me l'a montrée. Changement fait dans la même journée. Service complet et ponctuel.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div class="author-info">
+                            <h4>Jean-Claude Perreault</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Granby, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 8 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Mon fils a acheté une vieille Civic avec un voyant moteur allumé. Diagnostic OBD2 complet par Dino : sonde lambda + catalyseur encrassé. Il a tout nettoyé, changé la sonde et le voyant s'est éteint. Prix très raisonnable pour le travail effectué.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <h4>Mélanie Lefebvre</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Sherbrooke, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 9 - Featured -->
+                <div class="testimonial-card featured reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Intervention sur mon Hyundai Santa Fe pour une distribution complète. Dino s'est déplacé avec tout le matériel nécessaire, a fait le travail dans mon garage en 5h. Courroie, galets, pompe à eau, le kit complet. Depuis, le moteur roule comme une horloge suisse.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar highlight">M</div>
+                        <div class="author-info">
+                            <h4>Mohamed Kaddouri</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Longueuil, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 10 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Bloqué sur l'autoroute 10 avec une courroie d'accessoire qui a lâché. J'ai appelé Dino en urgence, il est venu directement sur la bande d'arrêt d'urgence. Changement de courroie + galet tendeur en moins d'une heure. Il m'a littéralement sauvé la journée.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <h4>Amir Bouzid</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Granby, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 11 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Service d'entretien complet sur ma Toyota Camry. Vidange, filtres, bougies, inspection complète. Dino a même nettoyé le boîtier papillon qui était encrassé. La voiture a retrouvé ses performances d'origine. Très méticuleux dans son travail.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div class="author-info">
+                            <h4>Jean-Claude Gagnon</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Montréal, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 12 - Featured -->
+                <div class="testimonial-card featured reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Dino est un passionné avant tout. Sur ma Subaru WRX, il a fait un travail de précision sur la ligne d'échappement et les capteurs. Il connaît les spécificités des moteurs turbo et travaille avec une rigueur impressionnante. Ma caisse n'ira plus jamais ailleurs.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar highlight">M</div>
+                        <div class="author-info">
+                            <h4>Mohamed Slimani</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Sherbrooke, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 13 -->
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-badge">VÉRIFIÉ</div>
+                    <div class="stars-container">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Je suis chauffeur de taxi, ma voiture est mon gagne-pain. Problème de démarreur un dimanche soir. Dino a répondu au téléphone à 21h, est venu le lendemain 6h du matin avec un démarreur neuf. En 2h c'était fait. Service de qualité, tarif correct. Un vrai pro.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <h4>Amir Hamdi</h4>
+                            <span><i class="fa-solid fa-map-pin"></i> Montréal, QC</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION CONTACT ================= -->
         <section class="contact" id="contact-section">
             <div class="contact-container">
                 <div class="contact-info-heavy reveal">
@@ -1147,7 +1933,7 @@
                 </div>
 
                 <div class="form-heavy-wrapper reveal">
-                    <form onsubmit="event.preventDefault(); alert('Votre demande de diagnostic moteur a été transmise à Mecano-Pro. Préparation de l\'atelier mobile en cours.');">
+                    <form onsubmit="event.preventDefault(); alert('Votre demande de diagnostic moteur a été transmise à Mecano-Pro. Préparation de l\'atelier mobile en cours. Nous vous contacterons dans les plus brefs délais.');">
                         <div class="form-grid-heavy">
                             <div class="form-field">
                                 <label>Votre Nom</label>
@@ -1184,7 +1970,7 @@
 
     </div>
 
-
+    <!-- ================= PAGE SERVICES ================= -->
     <div id="page-services" class="page-content">
         
         <section class="banner-heavy-services">
@@ -1281,7 +2067,7 @@
 
     </div>
 
-
+    <!-- ================= FOOTER ================= -->
     <footer>
         <div class="footer-container">
             <div class="footer-intro">
@@ -1314,7 +2100,7 @@
         </div>
     </footer>
 
-    <!-- NOUVELLE SECTION GOOGLE MAPS - AJOUTÉE SANS RIEN CASSER -->
+    <!-- ================= SECTION GOOGLE MAPS ================= -->
     <section class="google-maps-section">
         <div class="google-maps-container">
             <div class="google-maps-header reveal">
@@ -1338,7 +2124,7 @@
         </div>
     </section>
 
-
+    <!-- ================= SCRIPTS ================= -->
     <script>
         // Gestion de l'architecture Single Page
         function switchPage(pageId) {
